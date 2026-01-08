@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
@@ -44,16 +44,44 @@ function App() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
+  // Default state: local dev status
+  const [gitStatus, setGitStatus] = useState({ branch: 'local', hash: 'v1.0.0', message: 'Development Build' });
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('resize', () => {
+  useEffect(() => {
+    // Note: This API only works if the repository is PUBLIC.
+    // If getting 404, ensure repo is 'Public' in Settings > General > Visibility.
+    fetch('https://api.github.com/repos/denoyey/portfolio-denoyey/commits?per_page=1')
+      .then(res => {
+        if (!res.ok) throw new Error('Repo Private/Not Found');
+        return res.json();
+      })
+      .then(data => {
+        if (data && data[0]) {
+          setGitStatus({
+            branch: 'main', // Default branch fetched by API
+            hash: data[0].sha.substring(0, 7),
+            message: data[0].commit.message
+          });
+        }
+      })
+      .catch(() => {
+        // Fallback silently if offline or private repo
+        setGitStatus({ branch: 'local', hash: 'dnisepr', message: 'Private Repo / Local' });
+      });
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
       const mobile = window.innerWidth < 768;
       if (mobile !== isMobile) {
         setIsMobile(mobile);
         setIsSidebarOpen(!mobile);
       }
-    });
-  }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
@@ -68,7 +96,7 @@ function App() {
           <div className="relative w-full bg-[#0f172a] border-b border-slate-800 flex flex-col shrink-0 z-50">
             <div className="flex items-center justify-between px-6 py-4 bg-[#0f172a] relative z-50">
                <div className="flex items-center gap-3">
-                  <img src="/profile.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700" />
+                  <img src="https://github.com/denoyey.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700" />
                   <div className="flex flex-col">
                      <h2 className="text-xs font-bold text-slate-200 tracking-wide">Deni Setiawan Pratama</h2>
                      <span className="text-[10px] text-slate-500 font-mono">v1.0.0</span>
@@ -95,7 +123,7 @@ function App() {
                     <div className="flex flex-col gap-1 pb-4 px-2">
                       <SidebarItem to="/" label="Home" lineNum="01" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/about" label="About" lineNum="02" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
-                      <SidebarItem to="/skills" label="Skills" lineNum="03" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
+                      <SidebarItem to="/skills" label="Achievements" lineNum="03" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/projects" label="Projects" lineNum="04" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/experience" label="Experience" lineNum="05" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/contact" label="Contact" lineNum="06" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
@@ -125,20 +153,22 @@ function App() {
               
               {isSidebarOpen ? (
                 <div className="flex items-center gap-3">
-                   <img src="/profile.png" alt="Profile" className="w-10 h-10 rounded-lg border border-slate-700" />
+                   <img src="https://github.com/denoyey.png" alt="Profile" className="w-10 h-10 rounded-lg border border-slate-700" />
                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }} className="flex flex-col overflow-hidden">
                       <span className="text-xs text-slate-400 font-mono whitespace-nowrap">@dnisepr</span>
                       <h2 className="text-xs font-bold text-slate-200 tracking-wide whitespace-nowrap">Deni Setiawan Pratama</h2>
                    </motion.div>
                 </div>
               ) : (
-                 <img src="/profile.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700 mb-2" />
+                 <img src="https://github.com/denoyey.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700 mb-2" />
               )}
 
               {isSidebarOpen && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} className="mt-4 flex items-center gap-2 text-xs text-slate-500 font-mono">
-                   <span className="text-blue-500">git:(</span><span className="text-red-400">main</span><span className="text-blue-500">)</span>
-                   <span>v1.0.0</span>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }} className="mt-4 flex items-center gap-2 text-[10px] text-slate-500 font-mono overflow-hidden">
+                   <div className="flex items-center shrink-0">
+                      <span className="text-blue-500">git:(</span><span className="text-red-400 font-bold">{gitStatus.branch}</span><span className="text-blue-500">)</span>
+                   </div>
+                   <span className="truncate opacity-70 border-l border-slate-700 pl-2" title={gitStatus.message}>{gitStatus.message}</span>
                 </motion.div>
               )}
             </div>
