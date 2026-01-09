@@ -4,7 +4,7 @@ import { skills, featuredCards } from '../data/homeData';
 
 const Home = () => {
   return (
-    <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-300">
+    <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
       <MiniAbout />
       <hr className="w-full border-slate-700" />
       <MiniSkills />
@@ -16,8 +16,8 @@ const Home = () => {
 
 const MiniAbout = () => {
   return (
-    <div className="space-y-2 max-w-3xl">
-      <h1 className="md:text-2xl text-xl text-white">Hi, I'm Deni Setiawan Pratama <span className="animate-wave">👋</span></h1>
+    <div className="space-y-2 w-full">
+      <h1 className="md:text-2xl text-xl font-semibold text-white">Hi, I'm Deni Setiawan Pratama <span className="animate-wave">👋</span></h1>
       <h6 className="text-sm text-slate-300 font-medium flex items-center gap-2">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -25,7 +25,7 @@ const MiniAbout = () => {
         </span>
         Based in Tangerang, Indonesia
       </h6>
-      <p className="leading-loose text-sm md:text-base text-slate-300 pt-3">
+      <p className="leading-loose text-sm text-slate-300 pt-3 text-justify">
         I'm a Full Stack Web Developer with a passion for creating engaging and user-friendly websites. 
         With a strong foundation in both frontend and backend development, I'm dedicated to delivering 
         high-quality solutions that meet the needs of my clients and users.
@@ -36,7 +36,7 @@ const MiniAbout = () => {
 
 const MiniSkills = () => {
   return (
-    <div className="pt-0 pb-2 space-y-6 w-full max-w-3xl">
+    <div className="pt-0 pb-2 space-y-6 w-full">
       <div className="space-y-1">
         <div className="flex items-center gap-3">
           <i className="ri-code-s-slash-fill text-2xl text-slate-400"></i>
@@ -144,7 +144,7 @@ const FeaturedSection = () => {
   };
 
   return (
-    <div className="pt-0 pb-10 space-y-6 w-full max-w-3xl">
+    <div className="pt-0 space-y-6 w-full">
       <div className="space-y-1">
         <div className="flex items-center gap-3">
           <i className="ri-stack-line text-2xl text-slate-400"></i>

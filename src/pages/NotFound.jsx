@@ -1,15 +1,29 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 
 const NotFound = () => {
+  const location = useLocation();
+
   return (
-    <div className="p-12 text-center min-h-[80vh] flex flex-col items-center justify-center">
-      <h1 className="text-6xl font-bold bg-clip-text text-transparent bg-linear-to-r from-red-500 to-orange-500 m-0 mb-4">404</h1>
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Page Not Found</h2>
-      <p className="mb-8 text-gray-500">The page you are looking for does not exist.</p>
-      <Link to="/" className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors no-underline">
-        Go back to Home
-      </Link>
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center font-sans">
+       <h1 className="text-8xl font-bold text-white mb-4 select-none">404</h1>
+       
+       <h2 className="text-xl text-white font-medium mb-2">Page Not Found</h2>
+       
+       <p className="text-white mb-8 text-sm max-w-sm mx-auto">
+          The page <code className="text-slate-200 bg-slate-800/50 px-1.5 py-1 rounded font-mono">{location.pathname}</code> doesn't exist or has been moved.
+       </p>
+
+       <Link 
+         to="/" 
+         replace
+         className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800 text-slate-200 rounded-lg hover:bg-slate-700 transition-colors text-sm font-medium border border-slate-700"
+       >
+         <ArrowLeft size={16} />
+         <span>Back to Home</span>
+       </Link>
     </div>
   );
 };
+
 export default NotFound;

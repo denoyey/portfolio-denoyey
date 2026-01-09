@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,40 +16,42 @@ const SidebarItem = ({ to, label, lineNum, isCollapsed, onClick }) => (
       } ${isCollapsed ? 'justify-center px-1' : ''}`
     }
   >
-    <span className={`text-slate-700 text-xs text-right select-none font-bold transition-all duration-200 ${isCollapsed ? 'text-sm text-slate-500' : 'w-4'}`}>
-      {lineNum}
-    </span>
-    
-    {!isCollapsed && (
-      <motion.span 
-        initial={{ opacity: 0, width: 0 }}
-        animate={{ opacity: 1, width: "auto" }}
-        exit={{ opacity: 0, width: 0 }}
-        transition={{ duration: 0.2 }} 
-        className="text-sm whitespace-nowrap overflow-hidden"
-      >
-        <span className="text-purple-400">&lt;</span>{label}<span className="text-purple-400">/&gt;</span>
-      </motion.span>
-    )}
+    {({ isActive }) => (
+      <>
+        <span className={`text-xs text-right select-none font-bold transition-all duration-200 group-hover:text-slate-100 group-hover:scale-x-150 group-hover:-rotate-6 ${isCollapsed ? 'text-sm text-slate-200' : 'w-4'} ${isActive ? 'text-slate-100 scale-x-150 -rotate-6' : 'text-slate-700'}`}>
+          {lineNum}
+        </span>
+        
+        {!isCollapsed && (
+          <motion.span 
+            initial={{ opacity: 0, width: 0 }}
+            animate={{ opacity: 1, width: "auto" }}
+            exit={{ opacity: 0, width: 0 }}
+            transition={{ duration: 0.2 }} 
+            className={`text-sm whitespace-nowrap overflow-hidden transition-transform duration-200 origin-left ${isActive ? 'scale-110' : 'group-hover:scale-105'}`}
+          >
+            <span className="text-purple-400">&lt;</span>{label}<span className="text-purple-400">/&gt;</span>
+          </motion.span>
+        )}
 
-    {isCollapsed && (
-      <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded-md border border-slate-700 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-100 whitespace-nowrap">
-        <span className="text-purple-400">&lt;</span>{label}<span className="text-purple-400">/&gt;</span>
-      </div>
+        {isCollapsed && (
+          <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 px-2 py-1 bg-slate-900 text-slate-200 text-xs rounded-md border border-slate-700 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-100 whitespace-nowrap">
+            <span className="text-purple-400">&lt;</span>{label}<span className="text-purple-400">/&gt;</span>
+          </div>
+        )}
+      </>
     )}
   </NavLink>
 );
 
 function App() {
   const location = useLocation();
+  const scrollRef = useRef(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
-  // Default state: local dev status
   const [gitStatus, setGitStatus] = useState({ branch: 'local', hash: 'v1.0.0', message: 'Development Build' });
 
   useEffect(() => {
-    // Note: This API only works if the repository is PUBLIC.
-    // If getting 404, ensure repo is 'Public' in Settings > General > Visibility.
     fetch('https://api.github.com/repos/denoyey/portfolio-denoyey/commits?per_page=1')
       .then(res => {
         if (!res.ok) throw new Error('Repo Private/Not Found');
@@ -58,15 +60,14 @@ function App() {
       .then(data => {
         if (data && data[0]) {
           setGitStatus({
-            branch: 'main', // Default branch fetched by API
+            branch: 'main',
             hash: data[0].sha.substring(0, 7),
             message: data[0].commit.message
           });
         }
       })
       .catch(() => {
-        // Fallback silently if offline or private repo
-        setGitStatus({ branch: 'local', hash: 'dnisepr', message: 'Private Repo / Local' });
+        setGitStatus({ branch: 'local', hash: 'denoyey', message: 'Private Repo / Local' });
       });
   }, []);
 
@@ -96,10 +97,9 @@ function App() {
           <div className="relative w-full bg-[#0f172a] border-b border-slate-800 flex flex-col shrink-0 z-50">
             <div className="flex items-center justify-between px-6 py-4 bg-[#0f172a] relative z-50">
                <div className="flex items-center gap-3">
-                  <img src="https://github.com/denoyey.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700" />
+                  <img src="https://github.com/denoyey.png" alt="Profile" className="w-10 h-10 rounded-full border border-slate-700" />
                   <div className="flex flex-col">
-                     <h2 className="text-xs font-bold text-slate-200 tracking-wide">Deni Setiawan Pratama</h2>
-                     <span className="text-[10px] text-slate-500 font-mono">v1.0.0</span>
+                     <h2 className="text-xs font-bold text-slate-200 tracking-wide">Denoyey</h2>
                   </div>
                </div>
                <button 
@@ -125,7 +125,7 @@ function App() {
                       <SidebarItem to="/about" label="About" lineNum="02" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/skills" label="Achievements" lineNum="03" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/projects" label="Projects" lineNum="04" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
-                      <SidebarItem to="/experience" label="Experience" lineNum="05" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
+                      <SidebarItem to="/dashboard" label="Dashboard" lineNum="05" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/contact" label="Contact" lineNum="06" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                     </div>
                  </motion.nav>
@@ -152,15 +152,14 @@ function App() {
                </div>
               
               {isSidebarOpen ? (
-                <div className="flex items-center gap-3">
-                   <img src="https://github.com/denoyey.png" alt="Profile" className="w-10 h-10 rounded-lg border border-slate-700" />
+                <div className="flex flex-col items-center gap-2">
+                   <img src="https://github.com/denoyey.png" alt="Profile" className="w-20 h-20 rounded-full border border-slate-700" />
                    <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }} className="flex flex-col overflow-hidden">
-                      <span className="text-xs text-slate-400 font-mono whitespace-nowrap">@dnisepr</span>
-                      <h2 className="text-xs font-bold text-slate-200 tracking-wide whitespace-nowrap">Deni Setiawan Pratama</h2>
+                      <h2 className="text-xs font-bold text-slate-200 tracking-wide whitespace-nowrap">Denoyey</h2>
                    </motion.div>
                 </div>
               ) : (
-                 <img src="https://github.com/denoyey.png" alt="Profile" className="w-8 h-8 rounded-lg border border-slate-700 mb-2" />
+                 <img src="https://github.com/denoyey.png" alt="Profile" className="w-8 h-8 rounded-full border border-slate-700 mb-2" />
               )}
 
               {isSidebarOpen && (
@@ -184,7 +183,7 @@ function App() {
               <SidebarItem to="/about" label="About" lineNum="02" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/skills" label="Achievements" lineNum="03" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/projects" label="Projects" lineNum="04" isCollapsed={!isSidebarOpen} />
-              <SidebarItem to="/experience" label="Experience" lineNum="05" isCollapsed={!isSidebarOpen} />
+              <SidebarItem to="/dashboard" label="Dashboard" lineNum="05" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/contact" label="Contact" lineNum="06" isCollapsed={!isSidebarOpen} />
             </nav>
 
@@ -208,8 +207,8 @@ function App() {
         )}
 
         <main className="flex-1 relative overflow-hidden flex flex-col bg-[#1e293b]">
-          <div className="flex-1 overflow-y-auto p-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
-             <AnimatePresence mode="wait">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+             <AnimatePresence mode="wait" onExitComplete={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' })}>
               <motion.div
                 key={location.pathname}
                 initial={{ opacity: 0, y: 15 }}
