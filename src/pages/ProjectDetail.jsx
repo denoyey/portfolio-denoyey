@@ -14,9 +14,6 @@ const ProjectDetail = () => {
     if (!project) {
         navigate('/projects');
     }
-    if (project) {
-        document.title = `${project.title} | Projects`;
-    }
   }, [project, navigate]);
 
   if (!project) return null;
