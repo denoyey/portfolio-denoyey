@@ -123,7 +123,7 @@ function App() {
                     <div className="flex flex-col gap-1 pb-4 px-2">
                       <SidebarItem to="/" label="Home" lineNum="01" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/about" label="About" lineNum="02" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
-                      <SidebarItem to="/skills" label="Achievements" lineNum="03" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
+                      <SidebarItem to="/achievements" label="Achievements" lineNum="03" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/projects" label="Projects" lineNum="04" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/dashboard" label="Dashboard" lineNum="05" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
                       <SidebarItem to="/contact" label="Contact" lineNum="06" isCollapsed={false} onClick={() => setIsSidebarOpen(false)}/>
@@ -181,7 +181,7 @@ function App() {
             <nav className={`flex-1 px-2 space-y-0.5 pt-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${isSidebarOpen ? 'overflow-y-auto' : 'overflow-visible'}`}>
               <SidebarItem to="/" label="Home" lineNum="01" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/about" label="About" lineNum="02" isCollapsed={!isSidebarOpen} />
-              <SidebarItem to="/skills" label="Achievements" lineNum="03" isCollapsed={!isSidebarOpen} />
+              <SidebarItem to="/achievements" label="Achievements" lineNum="03" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/projects" label="Projects" lineNum="04" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/dashboard" label="Dashboard" lineNum="05" isCollapsed={!isSidebarOpen} />
               <SidebarItem to="/contact" label="Contact" lineNum="06" isCollapsed={!isSidebarOpen} />
