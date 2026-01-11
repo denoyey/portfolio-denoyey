@@ -20,7 +20,7 @@ const AboutContent = () => {
       <h1 className="text-2xl font-semibold mb-2">About</h1>
       <p className="text-slate-300 text-sm">A brief introduction about me.</p>
       <hr className="w-full border border-dashed mt-6 mb-6 border-slate-700" />
-      <p className="text-slate-300 text-sm leading-relaxed text-start">
+      <p className="text-slate-300 text-xs md:text-sm leading-relaxed text-start">
         Hello! I am <b>Deni Setiawan Pratama</b>, an undergraduate student majoring in <b>Information Technology</b>. I have a genuine passion for technology, especially where creativity meets logic. My journey started with simple curiosity, and now I love building web applications that are both robust and easy to use.<br/><br/>
         
         My focus is on <b>Full Stack Web Development</b>. I enjoy bridging the gap between backend systems and frontend interfaces. I believe that great software should not only work well but also provide a seamless experience for the user. I care deeply about the quality of my work, down to the last detail.<br/><br/>
