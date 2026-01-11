@@ -44,13 +44,13 @@ const ProjectDetail = () => {
                     <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-emerald-400">
                         {project.title}
                     </h1>
-                    <div className="flex flex-wrap gap-3 mt-4">
+                    <div className="flex flex-wrap gap-2 mt-4">
                         {project.techStack.map((tech, index) => (
                             <div 
                                 key={index} 
-                                className="flex items-center gap-2 bg-slate-800/40 border border-slate-700/50 rounded-full px-3 py-1 hover:border-slate-600 hover:bg-slate-800/80 transition-all duration-300 cursor-default group/tech"
+                                className="flex items-center gap-1.5 bg-slate-800/40 border border-slate-700/50 rounded-full px-2.5 py-1 hover:border-slate-600 hover:bg-slate-800/80 transition-all duration-300 cursor-default group/tech"
                             >
-                                <span className="text-lg group-hover/tech:scale-110 transition-transform duration-300 flex items-center">
+                                <span className="text-sm group-hover/tech:scale-110 transition-transform duration-300 flex items-center">
                                     <i className={`${tech.icon} ${tech.color}`} />
                                 </span>
                                 <span className="text-xs font-medium text-slate-300">{tech.name}</span>
