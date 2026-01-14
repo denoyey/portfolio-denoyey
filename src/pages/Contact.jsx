@@ -88,7 +88,7 @@ const ContactContent = () => {
                             <item.icon size={24} />
                         </div>
                         <RiArrowRightUpLine 
-                            className={`text-slate-500 group-hover:text-white transition-colors duration-300 group-hover:translate-x-1 group-hover:-translate-y-1`} 
+                            className={`text-slate-500 group-hover:text-white transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1`} 
                             size={20} 
                         />
                     </div>
@@ -203,8 +203,8 @@ const ContactForm = () => {
                             type="submit"
                             className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 active:scale-95"
                         >
-                            <span>Send Message</span>
                             <RiSendPlaneFill size={16} />
+                            <span>Send Message</span>
                         </button>
                     </div>
                 </form>
