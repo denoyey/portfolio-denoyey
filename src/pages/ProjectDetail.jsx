@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { RiFileTextLine, RiListCheck } from '@remixicon/react';
 import { projectsData } from '../data/projectsData';
 
 const ProjectDetail = () => {
@@ -41,19 +42,19 @@ const ProjectDetail = () => {
                 className="space-y-8"
             >
                 <div className="space-y-4">
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-emerald-400">
+                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-slate-200 to-slate-600">
                         {project.title}
                     </h1>
                     <div className="flex flex-wrap gap-2 mt-4">
                         {project.techStack.map((tech, index) => (
                             <div 
                                 key={index} 
-                                className="flex items-center gap-1.5 bg-slate-800/40 border border-slate-700/50 rounded-full px-2.5 py-1 hover:border-slate-600 hover:bg-slate-800/80 transition-all duration-300 cursor-default group/tech"
+                                className="flex items-center gap-1.5 bg-slate-800/40 border border-slate-700/50 rounded-full px-2.5 py-0.5 md:px-3 md:py-1 hover:border-slate-600 hover:bg-slate-800/80 transition-all duration-300 cursor-default group/tech"
                             >
                                 <span className="text-sm group-hover/tech:scale-110 transition-transform duration-300 flex items-center">
-                                    <i className={`${tech.icon} ${tech.color}`} />
+                                    <tech.icon className={`${tech.color} w-3.5 h-3.5 md:w-4 md:h-4`} />
                                 </span>
-                                <span className="text-xs font-medium text-slate-300">{tech.name}</span>
+                                <span className="text-[12px] md:text-xs font-medium text-slate-300">{tech.name}</span>
                             </div>
                         ))}
                     </div>
@@ -63,7 +64,7 @@ const ProjectDetail = () => {
                     <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full object-cover"
                     />
                 </div>
 
@@ -71,7 +72,7 @@ const ProjectDetail = () => {
                     <div className="space-y-6">
                         <section className="space-y-3">
                             <h2 className="text-lg md:text-xl font-bold text-slate-200 flex items-center gap-2">
-                                <i className="ri-file-text-line text-blue-400"></i> Description
+                                <RiFileTextLine className="text-blue-400" /> Description
                             </h2>
                             <p className="text-slate-400 leading-relaxed text-sm md:text-base">
                                 {project.description}
@@ -83,7 +84,7 @@ const ProjectDetail = () => {
 
                         <section className="space-y-3">
                              <h2 className="text-lg md:text-xl font-bold text-slate-200 flex items-center gap-2">
-                                <i className="ri-list-check text-purple-400"></i> Key Features
+                                <RiListCheck className="text-purple-400" /> Key Features
                             </h2>
                             <ul className="list-disc list-outside ml-5 space-y-2 text-slate-400 text-sm md:text-base">
                                 <li>Responsive Design for all devices</li>

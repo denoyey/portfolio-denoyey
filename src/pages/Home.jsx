@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { skills, featuredCards } from '../data/homeData';
+import { 
+  RiCodeSSlashFill, 
+  RiStackLine, 
+  RiArrowLeftSLine, 
+  RiArrowRightSLine, 
+  RiArrowRightLine 
+} from '@remixicon/react';
 
 const Home = () => {
   return (
@@ -25,7 +32,7 @@ const MiniAbout = () => {
         </span>
         Based in Tangerang, Indonesia
       </h6>
-      <p className="leading-loose text-sm text-slate-300 pt-3 text-justify">
+      <p className="leading-loose text-sm text-slate-300 pt-3 text-start">
         I'm a Full Stack Web Developer with a passion for creating engaging and user-friendly websites. 
         With a strong foundation in both frontend and backend development, I'm dedicated to delivering 
         high-quality solutions that meet the needs of my clients and users.
@@ -39,7 +46,7 @@ const MiniSkills = () => {
     <div className="pt-0 pb-2 space-y-6 w-full">
       <div className="space-y-1">
         <div className="flex items-center gap-3">
-          <i className="ri-code-s-slash-fill text-2xl text-slate-400"></i>
+          <RiCodeSSlashFill className="text-2xl text-slate-400" />
           <h1 className="text-2xl font-bold text-white"><code>Skills</code></h1>
         </div>
         <p className="text-slate-500 text-sm">Technologies I work with:</p>
@@ -53,17 +60,18 @@ const MiniSkills = () => {
             className={`
               group relative flex items-center justify-center
               w-14 h-14 md:w-16 md:h-16
-              rounded-3xl border backdrop-blur-sm
-              transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]
-              hover:scale-110 hover:shadow-[0px_4px_20px_0px_rgba(0,0,0,0.3)] hover:z-50
-              focus:-translate-y-2 focus:shadow-[0px_10px_20px_-10px_rgba(0,0,0,0.5)] focus:z-50
-              active:scale-95 active:shadow-none active:translate-y-0
+              rounded-2xl border
+              transition-transform duration-200 ease-out will-change-transform
+              hover:scale-105 hover:z-10
+              focus:scale-105 focus:z-10
+              active:scale-95
               ${skill.bg} cursor-pointer select-none tap-highlight-transparent outline-none
             `}
+            style={{ backfaceVisibility: 'hidden' }}
           >
-            <i className={`${skill.icon} text-2xl md:text-3xl ${skill.color} transition-transform duration-300 group-hover:scale-110 group-focus:scale-110 group-active:scale-95`}></i>
+            <skill.icon className={`text-2xl md:text-3xl ${skill.color} transition-opacity duration-200`} />
             
-            <span className="absolute top-full mt-2 px-2 py-1 bg-slate-900/90 text-slate-200 text-xs font-medium rounded-md border border-slate-700 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-all duration-200 translate-y-[-10px] group-hover:translate-y-0 group-focus:translate-y-0 pointer-events-none z-20 whitespace-nowrap shadow-md">
+            <span className="absolute top-full mt-2 px-2 py-1 bg-slate-900 text-slate-200 text-xs font-medium rounded-md border border-slate-700 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-200 pointer-events-none z-20 whitespace-nowrap shadow-sm left-1/2 -translate-x-1/2">
               {skill.name}
             </span>
           </div>
@@ -98,17 +106,17 @@ const FeaturedSection = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 min-h-[120px]">
           {currentItems.map((i) => (
             <Link 
-              key={i} 
-              to="/projects"
+              key={i.id} 
+              to={`/projects/${i.slug}`}
               className="aspect-video bg-slate-800 rounded-md border border-slate-700/50 overflow-hidden relative group/img hover:border-slate-500 transition-colors cursor-pointer block"
             >
               <img 
-                src={`https://placehold.co/600x400/1e293b/475569?text=Project+${i}`} 
-                alt={`Project ${i}`}
+                src={i.image} 
+                alt={i.title}
                 className="w-full h-full object-cover opacity-90 group-hover/img:opacity-100 transition-opacity duration-300"
               />
               <div className="absolute bottom-0 left-0 w-full p-1.5 bg-linear-to-t from-slate-900 via-slate-900/80 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity">
-                 <span className="text-[10px] text-slate-300 font-medium truncate block">Project {i}</span>
+                 <span className="text-[10px] text-slate-300 font-medium truncate block">{i.title}</span>
               </div>
             </Link>
           ))}
@@ -122,7 +130,7 @@ const FeaturedSection = () => {
               className={`p-1.5 rounded-full border border-slate-700 transition-all duration-200 
                 ${page === 0 ? 'text-slate-600 opacity-50 cursor-not-allowed' : 'text-slate-300 hover:bg-slate-700 hover:text-white'}`}
             >
-              <i className="ri-arrow-left-s-line text-lg"></i>
+              <RiArrowLeftSLine className="text-lg" />
             </button>
             
             <span className="text-xs text-slate-500 font-mono">
@@ -135,7 +143,7 @@ const FeaturedSection = () => {
               className={`p-1.5 rounded-full border border-slate-700 transition-all duration-200 
                 ${page === totalPages - 1 ? 'text-slate-600 opacity-50 cursor-not-allowed' : 'text-slate-300 hover:bg-slate-700 hover:text-white'}`}
             >
-              <i className="ri-arrow-right-s-line text-lg"></i>
+              <RiArrowRightSLine className="text-lg" />
             </button>
           </div>
         )}
@@ -147,7 +155,7 @@ const FeaturedSection = () => {
     <div className="pt-0 space-y-6 w-full">
       <div className="space-y-1">
         <div className="flex items-center gap-3">
-          <i className="ri-stack-line text-2xl text-slate-400"></i>
+          <RiStackLine className="text-2xl text-slate-400" />
           <h1 className="text-2xl font-bold text-white"><code>Featured</code></h1>
         </div>
         <p className="text-slate-500 text-sm">A sneak peek into my work and achievements.</p>
@@ -167,12 +175,12 @@ const FeaturedSection = () => {
             <div className="flex items-center justify-between pb-3 border-b border-slate-700/50 group-hover:border-slate-700 transition-colors">
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-lg bg-slate-800/80 border border-slate-700/50 group-hover:bg-transparent transition-all`}>
-                  <i className={`${card.icon} text-xl ${card.color}`}></i>
+                  <card.icon className={`${card.color} text-xl`} />
                 </div>
                 <span className={`text-base font-bold text-slate-200 group-hover:text-white transition-colors`}>{card.title}</span>
               </div>
               <Link to={card.path}>
-                <i className="ri-arrow-right-line text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all"></i>
+                <RiArrowRightLine className="text-slate-500 group-hover:translate-x-1 group-hover:text-white transition-all" />
               </Link>
             </div>
 

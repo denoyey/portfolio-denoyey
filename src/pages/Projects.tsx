@@ -7,6 +7,7 @@ import {
   useMotionValue,
 } from "framer-motion";
 import { projectsData } from "../data/projectsData";
+import { RiArrowRightUpLine } from "@remixicon/react";
 
 const Projects = () => {
   return (
@@ -87,7 +88,7 @@ const CardProjects = () => {
                 }
                 transition={{ duration: 0.3, ease: "circOut", delay: 0.1 }}
               >
-                <i className="ri-arrow-right-up-line"></i>
+                <RiArrowRightUpLine size={16} />
               </motion.span>
             </span>
           </div>
@@ -111,7 +112,7 @@ const CardProjects = () => {
           <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-slate-700/50 mt-auto">
             {project.techStack.map((tech: any, index: number) => (
               <div key={index} title={tech.name}>
-                <i className={`${tech.icon} ${tech.color} text-xl`} />
+                <tech.icon className={`${tech.color} text-xl`} />
               </div>
             ))}
           </div>
