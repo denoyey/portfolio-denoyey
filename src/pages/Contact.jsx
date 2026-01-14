@@ -8,12 +8,82 @@ import {
 } from '@remixicon/react';
 // eslint-disable-next-line
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import { useState, useEffect } from 'react';
+
+const SkeletonContact = () => {
+    return (
+        <div className="flex flex-col items-start gap-8 w-full">
+            <div className="w-full space-y-2">
+                <Skeleton width={100} height={32} baseColor="#1e293b" highlightColor="#334155" />
+                <Skeleton width={300} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                <div className="pt-6">
+                    <Skeleton height={2} baseColor="#1e293b" highlightColor="#334155" />
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
+                {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className="p-5 rounded-xl border border-slate-800 bg-slate-900/20 h-[180px] flex flex-col justify-between">
+                        <div className="flex justify-between items-start">
+                            <Skeleton width={50} height={50} borderRadius={10} baseColor="#1e293b" highlightColor="#334155" />
+                            <Skeleton width={20} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                        </div>
+                        <div className="space-y-1">
+                            <Skeleton width={100} height={24} baseColor="#1e293b" highlightColor="#334155" />
+                            <Skeleton width={80} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="w-full rounded-xl border border-slate-800 bg-slate-900/20 p-2 md:p-4 space-y-6">
+                <Skeleton width={140} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                        <Skeleton width={50} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                        <Skeleton height={42} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                    <div className="space-y-1.5">
+                        <Skeleton width={50} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                        <Skeleton height={42} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                    <div className="md:col-span-2 space-y-1.5">
+                        <Skeleton width={70} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                        <Skeleton height={120} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                    <div className="md:col-span-2">
+                        <Skeleton height={42} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
 
 const Contact = () => {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1500);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
+                <SkeletonContact />
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
-            <ContactHeader />          
+            <ContactHeader />
             <ContactContent />
             <ContactForm />
         </div>
@@ -31,8 +101,6 @@ const ContactHeader = () => {
         </section>
     );
 };
-
-
 
 const ContactContent = () => {
     const ContactCard = ({ item }) => {
@@ -116,7 +184,6 @@ const ContactContent = () => {
         </div>
     );
 };
-
 
 const ContactForm = () => {
     const mouseX = useMotionValue(0);

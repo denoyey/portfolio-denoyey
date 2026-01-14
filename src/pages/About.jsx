@@ -1,10 +1,106 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence, useMotionTemplate, useMotionValue } from 'framer-motion';
 import { ChevronDown, ChevronUp, Calendar, MapPin, Briefcase, Clock, Building2, GraduationCap, Download, FileDown } from 'lucide-react';
 import { careerData, educationData, downloadLinks } from '../data/aboutData';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+
+const SkeletonAbout = () => {
+  return (
+    <div className="flex flex-col items-start gap-8 w-full">
+      <div className="w-full space-y-2">
+        <Skeleton width={100} height={32} baseColor="#1e293b" highlightColor="#334155" />
+        <Skeleton width={200} height={20} baseColor="#1e293b" highlightColor="#334155" />
+        <div className="py-6">
+            <Skeleton height={2} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+        <div className="space-y-2">
+            <Skeleton count={3} baseColor="#1e293b" highlightColor="#334155" />
+            <Skeleton width="80%" baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+        <div className="pt-6">
+            <Skeleton height={2} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+      </div>
+
+      <div className="w-full space-y-4">
+        <div className="flex items-center gap-2 mb-2">
+           <Skeleton circle width={24} height={24} baseColor="#1e293b" highlightColor="#334155" />
+           <Skeleton width={120} height={24} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+        <Skeleton width={180} height={16} baseColor="#1e293b" highlightColor="#334155" className="mb-6 block" style={{ display: 'block' }} />
+        
+        {[1, 2].map((i) => (
+             <div key={i} className="bg-slate-800/30 border border-slate-700 rounded-xl p-4 w-full">
+                <div className="flex gap-3">
+                   <Skeleton width={64} height={64} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                   <div className="flex-1 space-y-2">
+                      <Skeleton width={150} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                      <Skeleton width={100} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                      <div className="flex gap-2 pt-2">
+                         <Skeleton width={80} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                         <Skeleton width={60} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                         <Skeleton width={60} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                      </div>
+                   </div>
+                </div>
+                <div className="mt-4">
+                     <Skeleton width="100%" height={32} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                </div>
+             </div>
+        ))}
+         <div className="pt-8">
+            <Skeleton height={2} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+      </div>
+
+      <div className="w-full space-y-4">
+         <div className="flex items-center gap-2 mb-2">
+           <Skeleton circle width={24} height={24} baseColor="#1e293b" highlightColor="#334155" />
+           <Skeleton width={120} height={24} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+        <div className="flex justify-between items-center mb-6">
+            <Skeleton width={180} height={16} baseColor="#1e293b" highlightColor="#334155" />
+            <div className="flex gap-2">
+                 <Skeleton width={120} height={32} baseColor="#1e293b" highlightColor="#334155" />
+                 <Skeleton width={120} height={32} baseColor="#1e293b" highlightColor="#334155" />
+            </div>
+        </div>
+         {[1].map((i) => (
+             <div key={i} className="bg-slate-800/30 border border-slate-700 rounded-xl p-4 w-full flex gap-3">
+                 <Skeleton circle width={64} height={64} baseColor="#1e293b" highlightColor="#334155" />
+                 <div className="flex-1 space-y-2">
+                      <Skeleton width={200} height={20} baseColor="#1e293b" highlightColor="#334155" />
+                      <Skeleton width={150} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                      <Skeleton width={250} height={16} baseColor="#1e293b" highlightColor="#334155" />
+                 </div>
+             </div>
+         ))}
+      </div>
+    </div>
+  );
+};
 
 const About = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+     return (
+        <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
+            <SkeletonAbout />
+        </div>
+     );
+  }
+
   return (
     <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
       <AboutContent />

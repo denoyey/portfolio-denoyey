@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -8,8 +8,107 @@ import {
 } from "framer-motion";
 import { projectsData } from "../data/projectsData";
 import { RiArrowRightUpLine } from "@remixicon/react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+const SkeletonProjects = () => {
+  return (
+    <div className="flex flex-col items-start gap-8 w-full">
+      <div className="w-full space-y-2">
+        <Skeleton
+          width={120}
+          height={32}
+          baseColor="#1e293b"
+          highlightColor="#334155"
+        />
+        <Skeleton
+          width={280}
+          height={20}
+          baseColor="#1e293b"
+          highlightColor="#334155"
+        />
+        <div className="pt-6">
+          <Skeleton height={2} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        {[1, 2, 3, 4].map((i) => (
+          <div
+            key={i}
+            className="bg-slate-800/30 rounded-xl overflow-hidden border border-slate-700/50 flex flex-col h-full"
+          >
+            <div className="h-50 shrink-0">
+              <Skeleton
+                height={200}
+                baseColor="#1e293b"
+                highlightColor="#334155"
+                style={{ display: "block" }}
+              />
+            </div>
+            <div className="p-5 flex flex-col grow space-y-4">
+              <Skeleton
+                width="60%"
+                height={24}
+                baseColor="#1e293b"
+                highlightColor="#334155"
+              />
+              <div className="space-y-2">
+                <Skeleton
+                  count={2}
+                  baseColor="#1e293b"
+                  highlightColor="#334155"
+                />
+              </div>
+              <div className="pt-4 mt-auto flex gap-3 border-t border-slate-700/50">
+                <Skeleton
+                  circle
+                  width={24}
+                  height={24}
+                  baseColor="#1e293b"
+                  highlightColor="#334155"
+                />
+                <Skeleton
+                  circle
+                  width={24}
+                  height={24}
+                  baseColor="#1e293b"
+                  highlightColor="#334155"
+                />
+                <Skeleton
+                  circle
+                  width={24}
+                  height={24}
+                  baseColor="#1e293b"
+                  highlightColor="#334155"
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Projects = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
+        <SkeletonProjects />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
       <ProjectsHeader />

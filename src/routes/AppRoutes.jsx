@@ -1,42 +1,78 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import App from '../App';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Projects from '../pages/Projects';
-import ProjectDetail from '../pages/ProjectDetail';
-import Contact from '../pages/Contact';
-import NotFound from '../pages/NotFound';
+
+const Home = lazy(() => import('../pages/Home'));
+const About = lazy(() => import('../pages/About'));
+const Projects = lazy(() => import('../pages/Projects'));
+const ProjectDetail = lazy(() => import('../pages/ProjectDetail'));
+const Contact = lazy(() => import('../pages/Contact'));
+const NotFound = lazy(() => import('../pages/NotFound'));
+
+const pageLoader = (
+  <div className="min-h-screen bg-[#1e293b] text-slate-100 flex items-center justify-center">
+    <div className="animate-pulse font-mono text-sm">Loading...</div>
+  </div>
+);
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: (
+      <Suspense fallback={pageLoader}>
+        <NotFound />
+      </Suspense>
+    ),
     children: [
       {
         path: '/',
-        element: <Home />,
+        element: (
+          <Suspense fallback={pageLoader}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: '/about',
-        element: <About />,
+        element: (
+          <Suspense fallback={pageLoader}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: '/projects',
-        element: <Projects />,
+        element: (
+          <Suspense fallback={pageLoader}>
+            <Projects />
+          </Suspense>
+        ),
       },
       {
         path: '/projects/:slug',
-        element: <ProjectDetail />,
+        element: (
+          <Suspense fallback={pageLoader}>
+            <ProjectDetail />
+          </Suspense>
+        ),
       },
       {
         path: '/contact',
-        element: <Contact />,
+        element: (
+          <Suspense fallback={pageLoader}>
+            <Contact />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Suspense fallback={pageLoader}>
+        <NotFound />
+      </Suspense>
+    ),
   }
 ]);

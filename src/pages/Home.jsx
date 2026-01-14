@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { skills, featuredCards } from '../data/homeData';
 import { 
   RiCodeSSlashFill, 
@@ -8,8 +8,92 @@ import {
   RiArrowRightSLine, 
   RiArrowRightLine 
 } from '@remixicon/react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+const SkeletonHome = () => {
+  return (
+    <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100 w-full">
+      <div className="space-y-4 w-full">
+         <div className="flex flex-col gap-2">
+            <Skeleton width="80%" height={32} baseColor="#1e293b" highlightColor="#334155" />
+            <Skeleton width={200} height={20} baseColor="#1e293b" highlightColor="#334155" />
+         </div>
+         <div className="space-y-2 pt-2">
+            <Skeleton count={3} baseColor="#1e293b" highlightColor="#334155" />
+            <Skeleton width="60%" baseColor="#1e293b" highlightColor="#334155" />
+         </div>
+      </div>
+
+      <div className="w-full h-px bg-slate-700/50"></div>
+
+      <div className="space-y-6 w-full">
+        <div className="flex items-center gap-3">
+           <Skeleton circle width={32} height={32} baseColor="#1e293b" highlightColor="#334155" />
+           <Skeleton width={100} height={32} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+        <div className="flex flex-wrap gap-4">
+           {[1, 2, 3, 4, 5, 6].map((i) => (
+               <Skeleton key={i} width={64} height={64} borderRadius={16} baseColor="#1e293b" highlightColor="#334155" style={{ display: 'block' }} />
+           ))}
+        </div>
+      </div>
+
+      <div className="w-full h-px bg-slate-700/50"></div>
+
+      <div className="space-y-6 w-full">
+        <div className="flex items-center gap-3">
+           <Skeleton circle width={32} height={32} baseColor="#1e293b" highlightColor="#334155" />
+           <Skeleton width={120} height={32} baseColor="#1e293b" highlightColor="#334155" />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-5 rounded-xl border border-slate-700 bg-slate-800/30 h-[250px] flex flex-col gap-4">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                       <Skeleton width={40} height={40} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                       <Skeleton width={100} height={24} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                </div>
+                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                     {[1, 2, 3, 4].map(k => (
+                         <Skeleton key={k} height={80} borderRadius={6} baseColor="#1e293b" highlightColor="#334155" style={{ display: 'block' }} />
+                     ))}
+                 </div>
+            </div>
+            
+            <div className="p-5 rounded-xl border border-slate-700 bg-slate-800/30 h-[250px] flex flex-col gap-4">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                       <Skeleton width={40} height={40} borderRadius={8} baseColor="#1e293b" highlightColor="#334155" />
+                       <Skeleton width={150} height={24} baseColor="#1e293b" highlightColor="#334155" />
+                    </div>
+                </div>
+                 <div className="space-y-2">
+                     <Skeleton count={2} baseColor="#1e293b" highlightColor="#334155" />
+                     <Skeleton width="80%" baseColor="#1e293b" highlightColor="#334155" />
+                 </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        setLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+     return <SkeletonHome />;
+  }
+
   return (
     <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
       <MiniAbout />
