@@ -218,7 +218,7 @@ function App() {
         )}
 
         <main className="flex-1 relative overflow-hidden flex flex-col bg-[#1e293b]">
-          <div ref={scrollRef} className="flex-1 overflow-y-auto p-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']">
+          <div ref={scrollRef} className={`flex-1 overflow-y-auto p-2 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] ${isMobile ? 'pb-10' : ''}`}>
              <AnimatePresence mode="wait" onExitComplete={() => scrollRef.current?.scrollTo({ top: 0, behavior: 'instant' })}>
               <motion.div
                 key={location.pathname}
