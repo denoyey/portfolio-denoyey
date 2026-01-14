@@ -86,12 +86,16 @@ function App() {
   }, [isMobile]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
+    <div className={`flex items-center justify-center min-h-screen ${isMobile ? 'p-0' : 'p-4'}`}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={!isMobile ? { opacity: 0, scale: 0.95 } : { opacity: 1, scale: 1 }}
+        animate={!isMobile ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col md:flex-row w-full max-w-5xl h-[85vh] bg-[#1e293b] rounded-xl shadow-xl overflow-hidden border border-slate-700/50 font-sans"
+        className={`flex flex-col md:flex-row w-full bg-[#1e293b] overflow-hidden font-sans ${
+          isMobile 
+            ? 'h-screen fixed inset-0 rounded-none border-none' 
+            : 'max-w-5xl h-[85vh] rounded-xl shadow-xl border border-slate-700/50'
+        }`}
       >
         
         {isMobile && (
