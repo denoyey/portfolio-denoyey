@@ -3,6 +3,7 @@ import { Outlet, NavLink, useLocation } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Menu, Terminal, GitBranch, Copyright } from 'lucide-react';
+import { RiVerifiedBadgeFill } from '@remixicon/react';
 
 const SidebarItem = ({ to, label, lineNum, isCollapsed, onClick }) => (
   <NavLink
@@ -98,8 +99,11 @@ function App() {
             <div className="flex items-center justify-between px-6 py-4 bg-[#0f172a] relative z-50">
                <div className="flex items-center gap-3">
                   <img src="https://github.com/denoyey.png" alt="Profile" className="w-10 h-10 rounded-full border border-slate-700" />
-                  <div className="flex flex-col">
+                  <div className="flex items-center gap-1">
                      <h2 className="text-xs font-bold text-slate-200 tracking-wide">Denoyey</h2>
+                     <span className="flex items-center gap-1 text-[10px] text-slate-500">
+                        <RiVerifiedBadgeFill size={14} className="text-blue-400" />
+                     </span>
                   </div>
                </div>
                <button 
@@ -152,10 +156,13 @@ function App() {
                </div>
               
               {isSidebarOpen ? (
-                <div className="flex flex-col items-center gap-2">
+                <div className="flex flex-col items-center gap-1">
                    <img src="https://github.com/denoyey.png" alt="Profile" className="w-20 h-20 rounded-full border border-slate-700" />
-                   <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }} className="flex flex-col overflow-hidden">
+                   <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.2 }} className="flex items-center gap-1 overflow-hidden">
                       <h2 className="text-xs font-bold text-slate-200 tracking-wide whitespace-nowrap">Denoyey</h2>
+                      <span className="flex items-center gap-1 text-[10px] text-slate-500">
+                        <RiVerifiedBadgeFill size={14} className="text-blue-400" />
+                     </span>
                    </motion.div>
                 </div>
               ) : (
