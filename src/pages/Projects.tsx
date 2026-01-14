@@ -12,13 +12,13 @@ import { RiArrowRightUpLine } from "@remixicon/react";
 const Projects = () => {
   return (
     <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
+      <ProjectsHeader />
       <ProjectsContent />
-      <CardProjects />
     </div>
   );
 };
 
-const ProjectsContent = () => {
+const ProjectsHeader = () => {
   return (
     <section className="space-y-2 w-full">
       <h1 className="text-2xl font-semibold mb-2">Projects</h1>
@@ -31,7 +31,7 @@ const ProjectsContent = () => {
   );
 };
 
-const CardProjects = () => {
+const ProjectsContent = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const ProjectCard = ({ project }: { project: any }) => {
