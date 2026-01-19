@@ -134,29 +134,24 @@ const ProjectDetail = () => {
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {project.link && project.link !== "#" ? (
-                                <>
-                                    <a 
-                                        href={project.link} 
-                                        target="_blank" 
-                                        rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-all font-semibold shadow-md shadow-amber-500/25 group text-sm"
-                                    >
-                                        <ExternalLink size={16} className="group-hover:rotate-45 transition-transform duration-300" />
-                                        Live Demo
-                                    </a>
-                                    <a 
-                                        href="#" 
-                                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all font-semibold border border-slate-700 hover:border-slate-600 group text-sm"
-                                    >
-                                        <Github size={16} className="group-hover:scale-110 transition-transform duration-300" />
-                                        Source Code
-                                    </a>
-                                </>
-                            ) : (
+                            {project.link && project.link !== "#" && (
                                 <a 
-                                    href="#" 
-                                    className="col-span-1 sm:col-span-2 flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all font-semibold border border-slate-700 hover:border-slate-600 group w-full text-sm"
+                                    href={project.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className={`flex items-center justify-center gap-2 px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-all font-semibold shadow-md shadow-amber-500/25 group text-sm ${!project.repo ? "col-span-1 sm:col-span-2 w-full" : ""}`}
+                                >
+                                    <ExternalLink size={16} className="group-hover:rotate-45 transition-transform duration-300" />
+                                    Live Demo
+                                </a>
+                            )}
+                            
+                            {project.repo && (
+                                <a 
+                                    href={project.repo} 
+                                    target={project.repo !== "#" ? "_blank" : undefined}
+                                    rel={project.repo !== "#" ? "noopener noreferrer" : undefined}
+                                    className={`flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all font-semibold border border-slate-700 hover:border-slate-600 group text-sm ${(!project.link || project.link === "#") ? "col-span-1 sm:col-span-2 w-full" : ""}`}
                                 >
                                     <Github size={16} className="group-hover:scale-110 transition-transform duration-300" />
                                     Source Code

@@ -16,6 +16,9 @@ import {
   SiCss3,
   SiJavascript,
   SiVercel,
+  SiScrollreveal,
+  SiMysql,
+  SiJquery,
 } from "react-icons/si";
 
 export const projectsData = [
@@ -32,11 +35,31 @@ export const projectsData = [
       { name: "Alpine.js", icon: SiAlpinedotjs, color: "text-teal-400" },
       { name: "Filament", icon: SiFilament, color: "text-yellow-400" },
       { name: "Remix Icon", icon: SiRemix, color: "text-blue-400" },
+      { name: "Mysql", icon: SiMysql, color: "text-orange-400" },
     ],
-    link: "https://hmtiunipi.or.id"
+    link: "https://hmtiunipi.or.id",
+    repo: "#",
   },
   {
     id: 2,
+    title: "Personal Portfolio v4",
+    slug: "portfolio-v4",
+    description: "My latest portfolio website. Built with React.js and Tailwind CSS to deliver a high-performance and modern digital presence. Showcasing my journey as a Full-Stack Developer and Security Enthusiast.",
+    image: "../assets/img/projects/portfolio-v4.webp",
+    techStack: [
+      { name: "React", icon: SiReact, color: "text-blue-500" },
+      { name: "React Router", icon: SiReactrouter, color: "text-red-400" },
+      { name: "Tailwind", icon: SiTailwindcss, color: "text-cyan-400" },
+      { name: "Vite", icon: SiVite, color: "text-yellow-400" },
+      { name: "Lucide", icon: SiLucide, color: "text-pink-400" },
+      { name: "Framer Motion", icon: SiFramer, color: "text-purple-400" },
+      { name: "Vercel", icon: SiVercel, color: "text-slate-100" }
+    ],
+    link: "https://denisetiawanpratama.vercel.app/",
+    repo: "https://github.com/denoyey/portfolio-denoyey",
+  },
+  {
+    id: 3,
     title: "Tekinfo 24 Class Portal",
     slug: "tekinfo-24-unipi",
     description: "The dedicated digital hub for the Informatics Engineering Class of 2024 at UNIPI. Features student resources, schedules, and class updates to foster connection and collaboration.",
@@ -50,10 +73,81 @@ export const projectsData = [
       { name: "Lucide", icon: SiLucide, color: "text-pink-400" },
       { name: "Vercel", icon: SiVercel, color: "text-slate-500" },
     ],
-    link: "https://tekinfo24-ip.vercel.app"
+    link: "https://tekinfo24-ip.vercel.app",
+    repo: "https://github.com/denoyey/tekinfo24.ip",
   },
   {
-    id: 3,
+    id: 4,
+    title: "MODDME - Modded Apps Store",
+    slug: "moddme-app-store",
+    description: "A curated library for downloading modded Android applications (Premium/VIP Unlocked). Features a responsive app showcase, category filtering, and direct download links.",
+    image: "../assets/img/projects/moddme.webp",
+    techStack: [
+      { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+      { name: "CSS3", icon: SiCss3, color: "text-blue-500" },
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-400" },
+      { name: "ScrollReveal", icon: SiScrollreveal, color: "text-slate-300" },
+      { name: "Remix Icon", icon: SiRemix, color: "text-blue-400" },
+      { name: "Jquery", icon: SiJquery, color: "text-blue-600" },
+      { name: "Netlify", icon: SiNetlify, color: "text-teal-400" }
+    ],
+    link: "https://moddme.netlify.app",
+    repo: "#",
+  },
+  {
+    id: 5,
+    title: "Server Installation Guide",
+    slug: "server-install-tutorial",
+    description: "A documentation hub providing step-by-step tutorials for setting up Linux servers (Ubuntu, Apache2, Nginx) using VirtualBox. Created to assist students and beginners in network administration.",
+    image: "../assets/img/projects/tutorial-install.webp",
+    techStack: [
+      { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+      { name: "Tailwind", icon: SiTailwindcss, color: "text-cyan-500" },
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-500" },
+      { name: "Netlify", icon: SiNetlify, color: "text-teal-400" },
+    ],
+    link: "https://tutorial-install.netlify.app",
+    repo: "#",
+  },
+  {
+    id: 6,
+    title: "Personal Portfolio v3",
+    slug: "portfolio-v3",
+    description: "A comprehensive personal portfolio featuring a visual archive, detailed academic history, and internship experiences. Highlights my dual expertise in Front-End Development and Network Administration.",
+    image: "../assets/img/projects/portfolio-v3.webp",
+    techStack: [
+      { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+      { name: "CSS3", icon: SiCss3, color: "text-blue-500" },
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-400" },
+      { name: "ScrollReveal", icon: SiScrollreveal, color: "text-slate-300" },
+      { name: "Netlify", icon: SiNetlify, color: "text-teal-400" }
+    ],
+    link: "https://deniportfolio.netlify.app",
+    repo: "#",
+  },
+  {
+    id: 7,
+    title: "Minimalist Portfolio",
+    slug: "minimalist-portfolio",
+    description: "A sleek, minimalist portfolio focusing on clean UI/UX design. Showcases my dual role as a Front-end Developer and Network Administrator with a dedicated blog section and tech stack overview.",
+    image: "../assets/img/projects/portfolio-v2.webp",
+    techStack: [
+      { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+      { name: "CSS3", icon: SiCss3, color: "text-blue-500" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-500" },
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "ScrollReveal", icon: SiScrollreveal, color: "text-slate-300" },
+      { name: "Remix Icon", icon: SiRemix, color: "text-blue-400" },
+      { name: "Jquery", icon: SiJquery, color: "text-blue-600" },
+      { name: "Netlify", icon: SiNetlify, color: "text-teal-400" }
+    ],
+    link: "https://denifolio.netlify.app/",
+    repo: "#",
+  },
+  {
+    id: 8,
     title: "Teknologi Informasi '24 Portal",
     slug: "tekfo-24-unipi-netlify",
     description: "The official landing page for the Informatics Engineering Class of 2024 (Tekfo 24). Serves as a digital profile and gallery showcase for the students of UNIPI.",
@@ -65,6 +159,24 @@ export const projectsData = [
       { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-400" },
       { name: "Netlify", icon: SiNetlify, color: "text-teal-400" }
     ],
-    link: "https://tekfo24-unipi.netlify.app/"
+    link: "https://tekfo24-unipi.netlify.app",
+    repo: "#",
+  },
+  {
+    id: 9,
+    title: "Old Personal Portfolio",
+    slug: "portfolio-denoy-v1",
+    description: "My first iteration of a personal portfolio website. Built with classic web technologies to showcase early projects and establish an online presence as a developer.",
+    image: "../assets/img/projects/portfolio-v1.webp",
+    techStack: [
+      { name: "HTML5", icon: SiHtml5, color: "text-orange-500" },
+      { name: "CSS3", icon: SiCss3, color: "text-blue-500" },
+      { name: "JavaScript", icon: SiJavascript, color: "text-yellow-400" },
+      { name: "Bootstrap", icon: SiBootstrap, color: "text-purple-500" },
+      { name: "ScrollReveal", icon: SiScrollreveal, color: "text-slate-300" },
+      { name: "Netlify", icon: SiNetlify, color: "text-teal-400" }
+    ],
+    link: "https://denisetiawanpratama-dev.netlify.app",
+    repo: "#",
   },
 ];
