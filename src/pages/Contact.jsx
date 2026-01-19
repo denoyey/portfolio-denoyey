@@ -4,7 +4,9 @@ import {
   RiUserLine, 
   RiMailLine, 
   RiChat1Line, 
-  RiSendPlaneFill 
+  RiSendPlaneFill,
+  RiLoader2Line,
+  RiCheckLine
 } from '@remixicon/react';
 // eslint-disable-next-line
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
@@ -189,6 +191,13 @@ const ContactForm = () => {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState('idle');
+
     function handleMouseMove({ currentTarget, clientX, clientY }) {
         let { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
@@ -202,6 +211,26 @@ const ContactForm = () => {
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
     }
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setStatus('sending');
+        setTimeout(() => {
+            console.log('Form Submitted:', formData);
+            
+            setStatus('success');
+            setFormData({ name: '', email: '', message: '' });
+            
+            setTimeout(() => setStatus('idle'), 3000);
+        }, 1500);
+    };
 
     return (
         <section 
@@ -228,15 +257,20 @@ const ContactForm = () => {
                     <h2 className="text-sm font-bold text-white">Or Send a Message</h2>
                 </div>
 
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={(e) => e.preventDefault()}>
+                <form className="grid grid-cols-1 md:grid-cols-2 gap-4" onSubmit={handleSubmit} autoComplete="off">
                     <div className="space-y-1.5">
                         <label className="text-xs font-medium text-slate-300 ml-1">Name</label>
                         <div className="relative group/input">
                             <RiUserLine className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within/input:text-cyan-400 transition-colors" size={18} />
                             <input 
                                 type="text" 
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                required
+                                disabled={status === 'sending'}
                                 placeholder="Your Name" 
-                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 backdrop-blur-sm"
+                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             />
                         </div>
                     </div>
@@ -247,8 +281,13 @@ const ContactForm = () => {
                             <RiMailLine className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within/input:text-cyan-400 transition-colors" size={18} />
                             <input 
                                 type="email" 
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                disabled={status === 'sending'}
                                 placeholder="your@email.com" 
-                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 backdrop-blur-sm"
+                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             />
                         </div>
                     </div>
@@ -259,8 +298,13 @@ const ContactForm = () => {
                             <RiChat1Line className="absolute left-2 top-3 text-slate-500 group-focus-within/input:text-cyan-400 transition-colors" size={18} />
                             <textarea 
                                 rows="4"
+                                name="message"
+                                value={formData.message}
+                                onChange={handleChange}
+                                required
+                                disabled={status === 'sending'}
                                 placeholder="Tell me about your project..." 
-                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 resize-none backdrop-blur-sm"
+                                className="w-full bg-slate-950/50 border border-slate-800 rounded-lg py-2.5 pl-2 pr-4 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all duration-300 resize-none backdrop-blur-sm disabled:opacity-50 disabled:cursor-not-allowed"
                             ></textarea>
                         </div>
                     </div>
@@ -268,10 +312,27 @@ const ContactForm = () => {
                     <div className="md:col-span-2 w-full">
                         <button 
                             type="submit"
-                            className="w-full flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 active:scale-95"
+                            disabled={status === 'sending' || status === 'success'}
+                            className={`w-full flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 hover:shadow-lg active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed
+                                ${status === 'success' ? 'bg-emerald-600 hover:bg-emerald-500 text-white' : 'bg-cyan-600 hover:bg-cyan-500 text-white hover:shadow-cyan-500/20'}
+                            `}
                         >
-                            <RiSendPlaneFill size={16} />
-                            <span>Send Message</span>
+                            {status === 'sending' ? (
+                                <>
+                                    <RiLoader2Line className="animate-spin" size={16} />
+                                    <span>Sending...</span>
+                                </>
+                            ) : status === 'success' ? (
+                                <>
+                                    <RiCheckLine size={16} />
+                                    <span>Message Sent!</span>
+                                </>
+                            ) : (
+                                <>
+                                    <RiSendPlaneFill size={16} />
+                                    <span>Send Message</span>
+                                </>
+                            )}
                         </button>
                     </div>
                 </form>

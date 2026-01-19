@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Github, Calendar, Users, Tag } from 'lucide-react';
 import { RiFileTextLine, RiListCheck } from '@remixicon/react';
 import { projectsData } from '../data/projectsData';
 
@@ -42,7 +42,7 @@ const ProjectDetail = () => {
                 className="space-y-8"
             >
                 <div className="space-y-4">
-                    <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-slate-200 to-slate-600">
+                    <h1 className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-slate-200 to-slate-600">
                         {project.title}
                     </h1>
                     <div className="flex flex-wrap gap-2 mt-4">
@@ -64,17 +64,22 @@ const ProjectDetail = () => {
                     <img 
                         src={project.image} 
                         alt={project.title} 
-                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        draggable="false"
+                        referrerPolicy="no-referrer"
+                        onContextMenu={(e) => e.preventDefault()}
+                        onDragStart={(e) => e.preventDefault()}
+                        className="w-full h-full object-cover select-none pointer-events-none"
                     />
                 </div>
 
                 <div className="space-y-8">
                     <div className="space-y-6">
                         <section className="space-y-3">
-                            <h2 className="text-lg md:text-xl font-bold text-slate-200 flex items-center gap-2">
+                            <h2 className="text-lg font-bold text-slate-200 flex items-center gap-2">
                                 <RiFileTextLine className="text-blue-400" /> Description
                             </h2>
-                            <p className="text-slate-400 leading-relaxed text-sm md:text-base">
+                            <p className="text-slate-400 leading-relaxed text-sm">
                                 {project.description}
                                 <br/><br/>
                                 This project demonstrates the usage of {project.techStack.map(t => t.name).join(", ")} to build responsive and interactive web applications. 
@@ -83,10 +88,10 @@ const ProjectDetail = () => {
                         </section>
 
                         <section className="space-y-3">
-                             <h2 className="text-lg md:text-xl font-bold text-slate-200 flex items-center gap-2">
+                             <h2 className="text-lg font-bold text-slate-200 flex items-center gap-2">
                                 <RiListCheck className="text-purple-400" /> Key Features
                             </h2>
-                            <ul className="list-disc list-outside ml-5 space-y-2 text-slate-400 text-sm md:text-base">
+                            <ul className="list-disc list-outside ml-5 space-y-2 text-slate-400 text-sm">
                                 <li>Responsive Design for all devices</li>
                                 <li>Interactive UI components with animations</li>
                                 <li>Optimized performance and SEO friendly</li>
@@ -95,46 +100,68 @@ const ProjectDetail = () => {
                         </section>
                     </div>
 
-                    <div className="bg-slate-800/30 border border-slate-700 rounded-xl p-6 md:p-8">
-                        <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
-                            <div className="space-y-4 w-full md:w-auto">
-                                <h3 className="text-base md:text-lg font-bold text-white">Project Info</h3>
-                                <div className="grid grid-cols-2 md:flex md:gap-8 gap-4 text-slate-400">
-                                    <div className="space-y-1">
-                                        <span className="block text-slate-500 text-sm font-medium">Category</span>
-                                        <span className="text-slate-200 text-base md:text-lg">Web Development</span>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <span className="block text-slate-500 text-sm font-medium">Date</span>
-                                        <span className="text-slate-200 text-base md:text-lg">2024</span>
-                                    </div>
-                                    <div className="space-y-1">
-                                        <span className="block text-slate-500 text-sm font-medium">Team</span>
-                                        <span className="text-slate-200 text-base md:text-lg">Personal</span>
-                                    </div>
+                    <div className="mt-8 pt-6 border-t border-slate-800 space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-colors group flex items-center justify-start gap-3">
+                                <div className="p-2 rounded-md bg-blue-500/10 text-blue-400 group-hover:bg-blue-500/20 transition-colors">
+                                    <Tag size={18} />
+                                </div>
+                                <div className="text-left">
+                                    <span className="block text-slate-500 text-xs font-medium">Category</span>
+                                    <span className="text-slate-200 text-sm font-semibold">Web Development</span>
                                 </div>
                             </div>
 
-                            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto pt-4 md:pt-0 border-t md:border-t-0 border-slate-700/50">
-                                {project.link && project.link !== "#" && (
+                            <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-colors group flex items-center justify-start gap-3">
+                                <div className="p-2 rounded-md bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 transition-colors">
+                                    <Calendar size={18} />
+                                </div>
+                                <div className="text-left">
+                                    <span className="block text-slate-500 text-xs font-medium">Date</span>
+                                    <span className="text-slate-200 text-sm font-semibold">2025</span>
+                                </div>
+                            </div>
+
+                            <div className="p-3 rounded-lg bg-slate-800/50 border border-slate-700/50 hover:border-slate-600 transition-colors group flex items-center justify-start gap-3">
+                                <div className="p-2 rounded-md bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                                    <Users size={18} />
+                                </div>
+                                <div className="text-left">
+                                    <span className="block text-slate-500 text-xs font-medium">Team</span>
+                                    <span className="text-slate-200 text-sm font-semibold">Personal</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            {project.link && project.link !== "#" ? (
+                                <>
                                     <a 
                                         href={project.link} 
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-all font-medium shadow-lg shadow-blue-900/20 w-full sm:w-auto"
+                                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition-all font-semibold shadow-md shadow-amber-500/25 group text-sm"
                                     >
-                                        <ExternalLink size={18} />
+                                        <ExternalLink size={16} className="group-hover:rotate-45 transition-transform duration-300" />
                                         Live Demo
                                     </a>
-                                )}
+                                    <a 
+                                        href="#" 
+                                        className="flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all font-semibold border border-slate-700 hover:border-slate-600 group text-sm"
+                                    >
+                                        <Github size={16} className="group-hover:scale-110 transition-transform duration-300" />
+                                        Source Code
+                                    </a>
+                                </>
+                            ) : (
                                 <a 
                                     href="#" 
-                                    className="flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-700/50 hover:bg-slate-700 text-slate-200 rounded-lg transition-all font-medium border border-slate-600 w-full sm:w-auto"
+                                    className="col-span-1 sm:col-span-2 flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-all font-semibold border border-slate-700 hover:border-slate-600 group w-full text-sm"
                                 >
-                                    <Github size={18} />
+                                    <Github size={16} className="group-hover:scale-110 transition-transform duration-300" />
                                     Source Code
                                 </a>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>
