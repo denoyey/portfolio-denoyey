@@ -4,6 +4,7 @@ import App from '../App';
 
 const Home = lazy(() => import('../pages/Home'));
 const About = lazy(() => import('../pages/About'));
+const Achievement = lazy(() => import('../pages/Achievement'));
 const Projects = lazy(() => import('../pages/Projects.jsx'));
 const ProjectDetail = lazy(() => import('../pages/ProjectDetail'));
 const Dashboard = lazy(() => import('../pages/Dashboard'));
@@ -39,6 +40,14 @@ export const router = createBrowserRouter([
         element: (
           <Suspense fallback={pageLoader}>
             <About />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/achievement',
+        element: (
+          <Suspense fallback={pageLoader}>
+            <Achievement />
           </Suspense>
         ),
       },
