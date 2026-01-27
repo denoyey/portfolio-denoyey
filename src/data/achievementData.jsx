@@ -12,7 +12,6 @@ export const achievementsData = [
     },
 ];
 
-// Filter options for dropdowns
 export const achievementTypes = [
     { value: 'all', label: 'All Types' },
     { value: 'certificate', label: 'Certificate' },

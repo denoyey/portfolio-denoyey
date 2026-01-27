@@ -1,12 +1,27 @@
+import { useState, useEffect } from 'react';
 import GithubStats from '../components/GithubStats';
+import { DashboardPageSkeleton } from '../components/Skeleton';
 
 const Dashboard = () => {
-    return (
-        <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
-            <DashboardHeader />
-            <GithubStats />
-        </div>
-    );
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return <DashboardPageSkeleton />;
+  }
+
+  return (
+    <div className="flex flex-col items-start gap-8 min-h-screen p-2 text-slate-100">
+      <DashboardHeader />
+      <GithubStats />
+    </div>
+  );
 };
 
 const DashboardHeader = () => {

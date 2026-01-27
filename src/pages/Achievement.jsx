@@ -9,12 +9,22 @@ import {
     typeColors,
     categoryColors
 } from '../data/achievementData';
+import { AchievementPageSkeleton } from '../components/Skeleton';
 
 const Achievement = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [typeFilter, setTypeFilter] = useState('all');
     const [categoryFilter, setCategoryFilter] = useState('all');
     const [selectedAchievement, setSelectedAchievement] = useState(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
 
     const filteredAchievements = useMemo(() => {
         return achievementsData.filter(achievement => {
@@ -29,6 +39,10 @@ const Achievement = () => {
             return matchesSearch && matchesType && matchesCategory;
         });
     }, [searchQuery, typeFilter, categoryFilter]);
+
+    if (isLoading) {
+        return <AchievementPageSkeleton cardCount={6} />;
+    }
 
     return (
         <>
@@ -237,7 +251,7 @@ const AchievementContent = ({ achievements, onSelectAchievement }) => {
             <section className="space-y-4 w-full">
                 <div className="min-h-[30vh] flex flex-col items-center justify-center">
                     <div className="text-slate-500 text-center">
-                        <p className="text-lg mb-2">No achievements found</p>
+                        <p className="text-sm">No achievements found</p>
                         <p className="text-sm">Try adjusting your search or filters</p>
                     </div>
                 </div>
